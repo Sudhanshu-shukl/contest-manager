@@ -6,7 +6,8 @@ const getApiBaseUrl = () => {
   }
   // If running on GitHub Pages, use a placeholder (you'll need to deploy backend separately)
   if (window.location.hostname === 'sudhanshu-shukl.github.io') {
-    return 'https://your-backend-url.herokuapp.com/api'; // Replace with your actual backend URL
+    // For now, return a mock URL to prevent errors
+    return 'https://jsonplaceholder.typicode.com/posts'; // Temporary mock API
   }
   // If running on your local IP, use the same IP for API
   return `http://${window.location.hostname}:5000/api`;

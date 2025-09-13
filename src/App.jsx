@@ -21,7 +21,8 @@ function App() {
             setContests(loadedContests);
         } catch (error) {
             console.error('Failed to load contests:', error);
-            // You could add a toast notification here
+            // Set empty array to prevent app crash
+            setContests([]);
         }
     };
 

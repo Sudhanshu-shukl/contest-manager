@@ -17,9 +17,6 @@ const ContestTable = ({
   const getContestStatus = (contest) => {
     if (contest.done) return 'completed';
     
-    // Debug logging
-    console.log('Contest:', contest.name, 'Date:', contest.date, 'Time:', contest.time);
-    
     // Handle both MongoDB Date objects and string dates
     let contestDateTime;
     if (contest.date instanceof Date) {
@@ -33,8 +30,6 @@ const ContestTable = ({
     
     const now = new Date();
     const diffDays = (contestDateTime - now) / (1000 * 60 * 60 * 24);
-    
-    console.log('Contest DateTime:', contestDateTime, 'Now:', now, 'Diff Days:', diffDays);
     
     if (diffDays <= 2) return 'urgent';
     if (diffDays <= 7) return 'soon';
