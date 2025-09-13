@@ -1,9 +1,9 @@
 {
-  "name": "contest-tracker",
+  "name": "contest-manager",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://sudhanshu-shukl.github.io/contest-tracker",
+  "homepage": "https://sudhanshu-shukl.github.io/contest-manager",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

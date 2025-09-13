@@ -1,6 +1,6 @@
-# Contest Tracker
+# Contest Manager
 
-A full-stack web application for tracking coding contest participation across multiple platforms. Built with React frontend and Node.js/Express backend with MongoDB database.
+A full-stack web application for managing coding contest participation across multiple platforms. Built with React frontend and Node.js/Express backend with MongoDB database.
 
 ## Features
 
@@ -141,7 +141,7 @@ The frontend will be available at `http://localhost:5173`
 ## Project Structure
 
 ```
-ContestTracker/
+ContestManager/
 ├── src/
 │   ├── components/
 │   │   ├── AddContestModal.jsx
