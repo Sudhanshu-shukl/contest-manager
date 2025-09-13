@@ -254,7 +254,7 @@ For production deployment, consider:
 
 ## License
 
-This project is licensed under the ISC License.
+This project is licensed under the MIT License.
 
 ## Support
 
@@ -272,3 +272,6 @@ For issues and questions:
 - Mobile app development
 - Integration with contest platform APIs
 - Social features and contest sharing
+
+## Author
+- [Sudhanshu Shukla](https://sudhanshu-shukl.github.io/portfolio)
