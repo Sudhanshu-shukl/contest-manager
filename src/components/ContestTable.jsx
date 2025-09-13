@@ -17,20 +17,32 @@ const ContestTable = ({
   const getContestStatus = (contest) => {
     if (contest.done) return 'completed';
     
-    // Handle both MongoDB Date objects and string dates
+    // Handle different date formats
     let contestDateTime;
+    
     if (contest.date instanceof Date) {
-      // MongoDB Date object - combine with time string
+      // MongoDB Date object
       const dateStr = contest.date.toISOString().split('T')[0]; // Get YYYY-MM-DD
       contestDateTime = new Date(dateStr + ' ' + contest.time);
+    } else if (typeof contest.date === 'string') {
+      // String date - could be ISO string or YYYY-MM-DD format
+      if (contest.date.includes('T')) {
+        // ISO string format
+        const dateStr = contest.date.split('T')[0];
+        contestDateTime = new Date(dateStr + ' ' + contest.time);
+      } else {
+        // YYYY-MM-DD format
+        contestDateTime = new Date(contest.date + ' ' + contest.time);
+      }
     } else {
-      // String date - original logic
+      // Fallback - try to create date anyway
       contestDateTime = new Date(contest.date + ' ' + contest.time);
     }
     
     const now = new Date();
     const diffDays = (contestDateTime - now) / (1000 * 60 * 60 * 24);
     
+    // Return status based on days until contest
     if (diffDays <= 2) return 'urgent';
     if (diffDays <= 7) return 'soon';
     return 'later';
