@@ -4,6 +4,10 @@ const getApiBaseUrl = () => {
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     return 'http://localhost:5000/api';
   }
+  // If running on GitHub Pages, use a placeholder (you'll need to deploy backend separately)
+  if (window.location.hostname === 'sudhanshu-shukl.github.io') {
+    return 'https://your-backend-url.herokuapp.com/api'; // Replace with your actual backend URL
+  }
   // If running on your local IP, use the same IP for API
   return `http://${window.location.hostname}:5000/api`;
 };
