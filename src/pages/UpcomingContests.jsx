@@ -10,11 +10,12 @@ const UpcomingContests = ({
   onAddContest, 
   onUpdateContest, 
   onDeleteContest, 
-  onMarkAsDone 
+  onMarkAsDone,
+  onMarkAsSkipped 
 }) => {
   const [showAddModal, setShowAddModal] = useState(false);
 
-  const upcomingContests = contests.filter(contest => !contest.done);
+  const upcomingContests = contests.filter(contest => !contest.done && !contest.skipped);
 
   const filteredContests = upcomingContests.filter(contest => {
     const matchesSearch = contest.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -57,6 +58,10 @@ const UpcomingContests = ({
             <div className="legend-color later"></div>
             <span>Later (> 7 days)</span>
           </div>
+          <div className="legend-item">
+            <div className="legend-color skipped"></div>
+            <span>Skipped</span>
+          </div>
         </div>
       </div>
 
@@ -65,6 +70,7 @@ const UpcomingContests = ({
         onUpdate={onUpdateContest}
         onDelete={onDeleteContest}
         onMarkAsDone={onMarkAsDone}
+        onMarkAsSkipped={onMarkAsSkipped}
         showActions={true}
       />
 

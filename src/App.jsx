@@ -74,6 +74,20 @@ function App() {
         }
     };
 
+    const markAsSkipped = async (id) => {
+        try {
+            const updatedContest = await apiService.markContestAsSkipped(id);
+            setContests(prevContests => 
+                prevContests.map(contest => 
+                    contest._id === id ? updatedContest : contest
+                )
+            );
+        } catch (error) {
+            console.error('Failed to mark contest as skipped:', error);
+            // You could add a toast notification here
+        }
+    };
+
     const importContests = async (importedContests) => {
         try {
             const promises = importedContests.map(contest => 
@@ -129,6 +143,7 @@ function App() {
                                     onUpdateContest={updateContest}
                                     onDeleteContest={deleteContest}
                                     onMarkAsDone={markAsDone}
+                                    onMarkAsSkipped={markAsSkipped}
                                 />
                             }
                         />

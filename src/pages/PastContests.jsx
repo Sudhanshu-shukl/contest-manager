@@ -3,7 +3,7 @@ import ContestTable from '../components/ContestTable';
 import PerformanceGraphs from '../components/PerformanceGraphs';
 
 const PastContests = ({ contests, searchTerm, platformFilter }) => {
-  const pastContests = contests.filter(contest => contest.done);
+  const pastContests = contests.filter(contest => contest.done || contest.skipped);
 
   const filteredContests = pastContests.filter(contest => {
     const matchesSearch = contest.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

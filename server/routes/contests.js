@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 // GET /api/contests/upcoming - Get upcoming contests
 router.get('/upcoming', async (req, res) => {
   try {
-    const contests = await Contest.find({ done: false }).sort({ date: 1, time: 1 });
+    const contests = await Contest.find({ done: false, skipped: false }).sort({ date: 1, time: 1 });
     res.json(contests);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching upcoming contests', error: error.message });
@@ -26,7 +26,10 @@ router.get('/upcoming', async (req, res) => {
 // GET /api/contests/past - Get completed contests
 router.get('/past', async (req, res) => {
   try {
-    const contests = await Contest.find({ done: true }).sort({ completedDate: -1 });
+    const contests = await Contest.find({ $or: [{ done: true }, { skipped: true }] }).sort({ 
+      completedDate: -1, 
+      skippedDate: -1 
+    });
     res.json(contests);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching past contests', error: error.message });
@@ -90,8 +93,10 @@ router.put('/:id/mark-done', async (req, res) => {
       req.params.id,
       { 
         done: true, 
+        skipped: false, // Reset skipped status
         questionsSolved: questionsSolved || 0,
-        completedDate: new Date()
+        completedDate: new Date(),
+        skippedDate: null // Clear skipped date
       },
       { new: true, runValidators: true }
     );
@@ -101,6 +106,29 @@ router.put('/:id/mark-done', async (req, res) => {
     res.json(contest);
   } catch (error) {
     res.status(500).json({ message: 'Error marking contest as done', error: error.message });
+  }
+});
+
+// PUT /api/contests/:id/mark-skipped - Mark contest as skipped
+router.put('/:id/mark-skipped', async (req, res) => {
+  try {
+    const contest = await Contest.findByIdAndUpdate(
+      req.params.id,
+      { 
+        skipped: true,
+        done: false, // Reset done status
+        questionsSolved: null, // Clear questions solved
+        skippedDate: new Date(),
+        completedDate: null // Clear completed date
+      },
+      { new: true, runValidators: true }
+    );
+    if (!contest) {
+      return res.status(404).json({ message: 'Contest not found' });
+    }
+    res.json(contest);
+  } catch (error) {
+    res.status(500).json({ message: 'Error marking contest as skipped', error: error.message });
   }
 });
 
@@ -122,7 +150,8 @@ router.get('/stats/summary', async (req, res) => {
   try {
     const totalContests = await Contest.countDocuments();
     const completedContests = await Contest.countDocuments({ done: true });
-    const upcomingContests = await Contest.countDocuments({ done: false });
+    const skippedContests = await Contest.countDocuments({ skipped: true });
+    const upcomingContests = await Contest.countDocuments({ done: false, skipped: false });
     
     const totalQuestions = await Contest.aggregate([
       { $match: { done: true } },
@@ -133,12 +162,18 @@ router.get('/stats/summary', async (req, res) => {
       ? (totalQuestions[0]?.total || 0) / completedContests 
       : 0;
 
+    const participationRate = totalContests > 0 
+      ? Math.round((completedContests / (completedContests + skippedContests)) * 100) 
+      : 0;
+
     res.json({
       totalContests,
       completedContests,
+      skippedContests,
       upcomingContests,
       totalQuestionsSolved: totalQuestions[0]?.total || 0,
-      averageQuestionsSolved: Math.round(averageQuestions * 10) / 10
+      averageQuestionsSolved: Math.round(averageQuestions * 10) / 10,
+      participationRate
     });
   } catch (error) {
     res.status(500).json({ message: 'Error fetching statistics', error: error.message });

@@ -79,6 +79,12 @@ class ApiService {
     });
   }
 
+  async markContestAsSkipped(id) {
+    return this.request(`/contests/${id}/mark-skipped`, {
+      method: 'PUT',
+    });
+  }
+
   async deleteContest(id) {
     return this.request(`/contests/${id}`, {
       method: 'DELETE',

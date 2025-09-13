@@ -4,15 +4,20 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 const PerformanceGraphs = ({ contests }) => {
   const processData = () => {
     const sortedContests = contests
-      .filter(contest => contest.done && contest.completedDate)
-      .sort((a, b) => new Date(a.completedDate) - new Date(b.completedDate));
+      .filter(contest => (contest.done && contest.completedDate) || (contest.skipped && contest.skippedDate))
+      .sort((a, b) => {
+        const dateA = new Date(a.completedDate || a.skippedDate);
+        const dateB = new Date(b.completedDate || b.skippedDate);
+        return dateA - dateB;
+      });
 
     const performanceData = sortedContests.map((contest, index) => ({
       contest: `Contest ${index + 1}`,
-      questions: contest.questionsSolved || 0,
-      date: new Date(contest.completedDate).toLocaleDateString(),
+      questions: contest.skipped ? 0 : (contest.questionsSolved || 0), // Skipped contests show 0 (dip)
+      date: new Date(contest.completedDate || contest.skippedDate).toLocaleDateString(),
       name: contest.name,
       platform: contest.platform,
+      status: contest.skipped ? 'skipped' : 'completed',
       cumulative: sortedContests.slice(0, index + 1).length
     }));
 
@@ -29,9 +34,15 @@ const PerformanceGraphs = ({ contests }) => {
           <p className="tooltip-title">{data.name}</p>
           <p className="tooltip-platform">{data.platform}</p>
           <p className="tooltip-date">{data.date}</p>
-          <p className="tooltip-questions">
-            Questions Solved: <span className="highlight">{data.questions}</span>
-          </p>
+          {data.status === 'skipped' ? (
+            <p className="tooltip-questions">
+              Status: <span style={{ color: '#f59e0b' }}>Skipped</span>
+            </p>
+          ) : (
+            <p className="tooltip-questions">
+              Questions Solved: <span className="highlight">{data.questions}</span>
+            </p>
+          )}
         </div>
       );
     }

@@ -190,6 +190,12 @@ body {
   color: #16a34a;
 }
 
+.action-btn.warning:hover {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+}
+
 /* Main content */
 .main-content {
   flex: 1;
@@ -324,6 +330,11 @@ body {
   background: rgba(240, 253, 244, 0.8);
 }
 
+.contest-card.skipped {
+  border-color: rgba(245, 158, 11, 0.3);
+  background: rgba(255, 251, 235, 0.8);
+}
+
 .contest-header {
   display: flex;
   justify-content: space-between;
@@ -390,6 +401,16 @@ body {
   display: inline-block;
   background: rgba(34, 197, 94, 0.1);
   color: #16a34a;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.contest-skipped {
+  display: inline-block;
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
   padding: 0.5rem 1rem;
   border-radius: 20px;
   font-size: 0.875rem;
@@ -536,6 +557,10 @@ body {
 
 .success-icon {
   color: #16a34a;
+}
+
+.warning-icon {
+  color: #f59e0b;
 }
 
 .close-btn {
@@ -685,6 +710,18 @@ body {
   box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
 }
 
+.btn-warning {
+  background: #f59e0b;
+  color: white;
+  box-shadow: 0 2px 4px rgba(245, 158, 11, 0.2);
+}
+
+.btn-warning:hover {
+  background: #d97706;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
 /* Color Legend */
 .color-legend {
   background: rgba(255, 255, 255, 0.7);
@@ -737,6 +774,11 @@ body {
 .legend-color.later {
   background: rgba(239, 246, 255, 0.8);
   border-color: rgba(59, 130, 246, 0.3);
+}
+
+.legend-color.skipped {
+  background: rgba(255, 251, 235, 0.8);
+  border-color: rgba(245, 158, 11, 0.3);
 }
 
 .legend-item span {

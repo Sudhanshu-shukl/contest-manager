@@ -34,12 +34,20 @@ const contestSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  skipped: {
+    type: Boolean,
+    default: false
+  },
   questionsSolved: {
     type: Number,
     default: null,
     min: 0
   },
   completedDate: {
+    type: Date,
+    default: null
+  },
+  skippedDate: {
     type: Date,
     default: null
   },

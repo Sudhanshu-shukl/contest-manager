@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
-import { Edit2, Trash2, CheckCircle, ExternalLink, Calendar, Clock } from 'lucide-react';
+import { Edit2, Trash2, CheckCircle, XCircle, ExternalLink, Calendar, Clock } from 'lucide-react';
 import EditContestModal from './EditContestModal';
 import MarkDoneModal from './MarkDoneModal';
+import SkipContestModal from './SkipContestModal';
 
 const ContestTable = ({ 
   contests, 
   onUpdate, 
   onDelete, 
   onMarkAsDone, 
+  onMarkAsSkipped,
   showActions = true,
   showPerformance = false 
 }) => {
   const [editingContest, setEditingContest] = useState(null);
   const [markingDone, setMarkingDone] = useState(null);
+  const [markingSkipped, setMarkingSkipped] = useState(null);
 
   const getContestStatus = (contest) => {
     if (contest.done) return 'completed';
+    if (contest.skipped) return 'skipped';
     
     // Handle different date formats
     let contestDateTime;
@@ -130,6 +134,13 @@ const ContestTable = ({
                     >
                       <CheckCircle size={16} />
                     </button>
+                    <button
+                      className="action-btn small warning"
+                      onClick={() => setMarkingSkipped(contest)}
+                      title="Skip Contest"
+                    >
+                      <XCircle size={16} />
+                    </button>
                   </div>
                 )}
               </div>
@@ -156,11 +167,17 @@ const ContestTable = ({
                 </div>
               </div>
 
-              {showPerformance && contest.questionsSolved !== null && (
+              {showPerformance && (contest.questionsSolved !== null || contest.skipped) && (
                 <div className="performance-badge">
-                  <span className="questions-solved">
-                    {contest.questionsSolved} questions solved
-                  </span>
+                  {contest.skipped ? (
+                    <span className="contest-skipped">
+                      Skipped
+                    </span>
+                  ) : (
+                    <span className="questions-solved">
+                      {contest.questionsSolved} questions solved
+                    </span>
+                  )}
                 </div>
               )}
             </div>
@@ -181,6 +198,14 @@ const ContestTable = ({
           contest={markingDone}
           onClose={() => setMarkingDone(null)}
           onMarkAsDone={onMarkAsDone}
+        />
+      )}
+
+      {markingSkipped && (
+        <SkipContestModal
+          contest={markingSkipped}
+          onClose={() => setMarkingSkipped(null)}
+          onMarkAsSkipped={onMarkAsSkipped}
         />
       )}
     </>
