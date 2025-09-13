@@ -274,4 +274,4 @@ For issues and questions:
 - Social features and contest sharing
 
 ## Author
--[Sudhanshu Shukla](https://sudhanshu-shukl.github.io/portfolio)
+- [Sudhanshu Shukla](https://sudhanshu-shukl.github.io/portfolio)
