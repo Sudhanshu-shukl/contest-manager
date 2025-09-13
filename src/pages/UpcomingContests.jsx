@@ -41,6 +41,25 @@ const UpcomingContests = ({
         </button>
       </div>
 
+      {/* Color Legend */}
+      <div className="color-legend">
+        <h3>Contest Status Legend</h3>
+        <div className="legend-items">
+          <div className="legend-item">
+            <div className="legend-color urgent"></div>
+            <span>Urgent (≤ 2 days)</span>
+          </div>
+          <div className="legend-item">
+            <div className="legend-color soon"></div>
+            <span>Soon (3-7 days)</span>
+          </div>
+          <div className="legend-item">
+            <div className="legend-color later"></div>
+            <span>Later (> 7 days)</span>
+          </div>
+        </div>
+      </div>
+
       <ContestTable
         contests={filteredContests}
         onUpdate={onUpdateContest}
