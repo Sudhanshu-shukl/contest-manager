@@ -276,34 +276,6 @@ For issues and questions:
 ## Author
 - [Sudhanshu Shukla](https://sudhanshu-shukl.github.io/portfolio)
 
-Commit 1 at 2025-09-19 00:50:39
-
-Commit 2 at 2025-09-19 00:50:39
-
-Commit 3 at 2025-09-19 00:50:40
-
-Commit 4 at 2025-09-19 00:50:40
-
-Commit 5 at 2025-09-19 00:50:40
-
-Commit 6 at 2025-09-19 00:50:41
-
-Commit 7 at 2025-09-19 00:50:41
-
-Commit 1 at 2025-09-20 01:00:55
-
-Commit 2 at 2025-09-20 01:00:55
-
-Commit 3 at 2025-09-20 01:00:55
-
-Commit 4 at 2025-09-20 01:00:55
-
-Commit 5 at 2025-09-20 01:00:55
-
-Commit 6 at 2025-09-20 01:00:55
-
-Commit 7 at 2025-09-20 01:00:56
-
 Commit 1 at 2025-09-21 03:57:18
 
 Commit 2 at 2025-09-21 03:57:18
