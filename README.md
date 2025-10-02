@@ -276,8 +276,3 @@ For issues and questions:
 ## Author
 - [Sudhanshu Shukla](https://sudhanshu-shukl.github.io/portfolio)
 
-Commit 1 at 2025-09-21 03:57:18
-
-Commit 2 at 2025-09-21 03:57:18
-
-Commit 3 at 2025-09-21 03:57:18
