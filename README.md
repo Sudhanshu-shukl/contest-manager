@@ -1,317 +1,181 @@
-# Contest Manager
+# Contest Manager 🚀
+A full-stack web application to track and manage coding contest participation across multiple platforms.
 
-A full-stack web application for managing coding contest participation across multiple platforms. Built with React frontend and Node.js/Express backend with MongoDB database.
+---
+
+<div align="center">
+  <img src="https://img.shields.io/badge/Platform-React-61DAFB?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Backend-Node.js-339933?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Database-MongoDB-47A248?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge" />
+</div>
+
+---
+
+## Demo
+
+<div align="center">
+  <img src="docs/demo.png" alt="App Screenshot" width="720"/>
+</div>
+
+---
 
 ## Features
 
 ### Contest Management
-- Add, edit, and delete coding contests
-- Support for multiple platforms (LeetCode, Codeforces, AtCoder, HackerRank, CodeChef, TopCoder)
-- Mark contests as completed with questions solved count
-- Visual status indicators based on contest proximity
+- Add, edit, delete contests across **LeetCode, Codeforces, AtCoder, HackerRank, CodeChef, TopCoder**  
+- Mark contests completed with **questions solved count**  
+- Visual indicators for upcoming and past contests  
+- Filter & search contests in real-time
 
 ### Data Persistence
-- MongoDB database for reliable data storage
-- RESTful API for all CRUD operations
-- Data import/export functionality
-- Automatic data synchronization
+- MongoDB database for reliable storage  
+- RESTful API for all CRUD operations  
+- Import/export contest data (JSON)  
+- Automatic synchronization between frontend and backend
 
 ### Performance Analytics
-- Track questions solved per contest
-- Visual performance graphs and statistics
-- Contest completion progress tracking
-- Platform-specific performance metrics
+- Track **questions solved per contest**  
+- Visual performance graphs & statistics  
+- Platform-specific performance metrics  
+- Overall completion tracking
 
 ### User Interface
-- Responsive design for desktop and mobile
-- Modern glassmorphism UI design
-- Real-time search and filtering
-- Intuitive navigation and user experience
+- Responsive for desktop & mobile  
+- Modern **glassmorphism** UI design  
+- Intuitive navigation & UX
 
-## Technology Stack
+---
 
-### Frontend
-- **React 18.3.1** - UI framework
-- **Vite 7.1.5** - Build tool and development server
-- **React Router DOM 7.9.1** - Client-side routing
-- **Lucide React** - Icon library
-- **Recharts** - Data visualization
-- **Custom CSS** - Styling with modern design patterns
+## Tech Stack
 
-### Backend
-- **Node.js** - Runtime environment
-- **Express.js** - Web framework
-- **Mongoose** - MongoDB object modeling
-- **CORS** - Cross-origin resource sharing
-- **dotenv** - Environment variable management
+<div align="center">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="35" alt="React" />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" height="35" alt="Node.js" />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" height="35" alt="Express" />
+  <img width="12" />
+  <img src="https://cdn.simpleicons.org/mongodb/47A248" height="35" alt="MongoDB" />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="35" alt="JavaScript" />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" height="35" alt="HTML5" />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" height="35" alt="CSS3" />
+</div>
 
-### Database
-- **MongoDB** - NoSQL database
-- **Mongoose ODM** - Object document mapping
+---
 
 ## Installation
 
 ### Prerequisites
-- Node.js (v16 or higher)
-- MongoDB (local installation or MongoDB Atlas)
-- npm or yarn package manager
+- Node.js v16+  
+- MongoDB (local or Atlas)  
+- npm or yarn
 
 ### Backend Setup
-
-1. Navigate to the server directory:
 ```bash
 cd server
-```
-
-2. Install dependencies:
-```bash
 npm install
-```
-
-3. Configure environment variables:
-Create a `.env` file in the server directory:
-```env
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/contest-tracker
-NODE_ENV=development
-```
-
-4. Start the backend server:
-```bash
+# configure .env
 npm run dev
+Frontend Setup
 ```
-
-The backend will be available at `http://localhost:5000`
-
-### Frontend Setup
-
-1. Navigate to the project root directory:
 ```bash
 cd ..
-```
-
-2. Install dependencies:
-```bash
 npm install
-```
-
-3. Start the development server:
-```bash
 npm run dev
 ```
-
-The frontend will be available at `http://localhost:5173`
+Access frontend at http://localhost:5173 and backend at http://localhost:5000.
 
 ## API Endpoints
 
-### Contest Management
-- `GET /api/contests` - Retrieve all contests
-- `GET /api/contests/upcoming` - Retrieve upcoming contests
-- `GET /api/contests/past` - Retrieve completed contests
-- `GET /api/contests/:id` - Retrieve specific contest
-- `POST /api/contests` - Create new contest
-- `PUT /api/contests/:id` - Update contest
-- `PUT /api/contests/:id/mark-done` - Mark contest as completed
-- `DELETE /api/contests/:id` - Delete contest
+### Contests
+- `GET /api/contests` → All contests
+- `GET /api/contests/upcoming` → Upcoming contests
+- `GET /api/contests/past` → Completed contests
+- `GET /api/contests/:id` → Contest details
+- `POST /api/contests` → Add new contest
+- `PUT /api/contests/:id` → Update contest
+- `PUT /api/contests/:id/mark-done` → Mark as completed
+- `DELETE /api/contests/:id` → Delete contest
 
-### Statistics
-- `GET /api/contests/stats/summary` - Retrieve contest statistics
+### Stats
+- `GET /api/contests/stats/summary` → Performance metrics
 
-### Health Check
-- `GET /api/health` - Server health status
+### Health
+- `GET /api/health` → Server status
 
 ## Database Schema
-
-### Contest Model
 ```javascript
 {
-  name: String (required),
-  platform: String (enum: ['LeetCode', 'Codeforces', 'AtCoder', 'HackerRank', 'CodeChef', 'TopCoder']),
-  date: Date (required),
-  time: String (required),
-  link: String (required, URL validation),
-  done: Boolean (default: false),
-  questionsSolved: Number (min: 0),
+  name: String,
+  platform: ['LeetCode','Codeforces','AtCoder','HackerRank','CodeChef','TopCoder'],
+  date: Date,
+  time: String,
+  link: String,
+  done: Boolean,
+  questionsSolved: Number,
   completedDate: Date,
-  createdAt: Date (auto-generated),
-  updatedAt: Date (auto-generated)
+  createdAt: Date,
+  updatedAt: Date
 }
 ```
-
 ## Project Structure
-
-```
+```bash
+lua
+Copy code
 ContestManager/
 ├── src/
 │   ├── components/
-│   │   ├── AddContestModal.jsx
-│   │   ├── ContestTable.jsx
-│   │   ├── EditContestModal.jsx
-│   │   ├── MarkDoneModal.jsx
-│   │   ├── Navigation.jsx
-│   │   └── PerformanceGraphs.jsx
 │   ├── pages/
-│   │   ├── PastContests.jsx
-│   │   └── UpcomingContests.jsx
 │   ├── services/
-│   │   └── api.js
 │   ├── styles/
-│   │   └── App.css
 │   ├── App.jsx
 │   └── main.jsx
 ├── server/
 │   ├── config/
-│   │   └── database.js
 │   ├── models/
-│   │   └── Contest.js
 │   ├── routes/
-│   │   └── contests.js
-│   ├── package.json
 │   └── server.js
 ├── package.json
 ├── vite.config.js
 └── README.md
 ```
-
 ## Usage
+- Add, edit, delete contests easily
+- Mark contests as complete & track questions solved
+- View detailed performance analytics and charts
+- Import/export contest data in JSON
 
-### Adding Contests
-1. Click the "Add Contest" button on the Upcoming Contests page
-2. Fill in contest details (name, platform, date, time, link)
-3. Submit to save to database
+## Development & Scripts
 
-### Managing Contests
-- **Edit**: Click the edit icon on any contest card
-- **Delete**: Click the delete icon to remove a contest
-- **Mark Complete**: Click the checkmark icon and enter questions solved
+### Frontend
+- `npm run dev` → start dev server
+- `npm run build` → production build
+- `npm run preview` → preview production
+- `npm run lint` → lint code
 
-### Viewing Performance
-- Navigate to "Past Contests" to view completed contests
-- View performance graphs showing questions solved over time
-- Check statistics summary for overall performance metrics
-
-### Data Management
-- **Export**: Download contest data as JSON file
-- **Import**: Upload JSON file to restore or merge contest data
-
-## Development
-
-### Available Scripts
-
-#### Frontend
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-
-#### Backend
-- `npm run dev` - Start development server with nodemon
-- `npm start` - Start production server
-
-### Code Style
-- ESLint configuration for consistent code formatting
-- React best practices and hooks usage
-- Component-based architecture
-- Separation of concerns between frontend and backend
+### Backend
+- `npm run dev` → start with nodemon
+- `npm start` → production
 
 ## Deployment
 
-### Local Network Access
-To access the application from other devices on your local network:
+### Local Network
+- Bind `vite.config.js` & `server.js` to `0.0.0.0` for LAN access
+- Access via `http://YOUR_IP:5173`
 
-1. Update `vite.config.js` to bind to all interfaces:
-```javascript
-server: {
-  host: '0.0.0.0',
-  port: 5173,
-}
-```
-
-2. Update `server.js` to listen on all interfaces:
-```javascript
-app.listen(PORT, '0.0.0.0', () => {
-  // Server configuration
-});
-```
-
-3. Access via your local IP address: `http://YOUR_IP:5173`
-
-### Production Deployment
-For production deployment, consider:
-- Environment variable configuration
-- Database connection security
-- CORS policy restrictions
-- Error handling and logging
-- Performance optimization
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License.
-
-## Support
-
-For issues and questions:
-1. Check the console for error messages
-2. Verify MongoDB connection
-3. Ensure all dependencies are installed
-4. Check network connectivity for local access
+### Production
+- Configure env vars, CORS, logging & optimizations
 
 ## Future Enhancements
-
-- User authentication and multi-user support
-- Contest notifications and reminders
-- Advanced analytics and reporting
-- Mobile app development
-- Integration with contest platform APIs
-- Social features and contest sharing
+- Multi-user support & authentication
+- Notifications & reminders
+- Advanced analytics & reporting
+- Mobile app integration
+- Platform API integration
 
 ## Author
-- [Sudhanshu Shukla](https://sudhanshu-shukl.github.io/portfolio)
-
-Commit 1 at 2025-09-19 00:50:39
-
-Commit 2 at 2025-09-19 00:50:39
-
-Commit 3 at 2025-09-19 00:50:40
-
-Commit 4 at 2025-09-19 00:50:40
-
-Commit 5 at 2025-09-19 00:50:40
-
-Commit 6 at 2025-09-19 00:50:41
-
-Commit 7 at 2025-09-19 00:50:41
-
-Commit 1 at 2025-09-20 01:00:55
-
-Commit 2 at 2025-09-20 01:00:55
-
-Commit 3 at 2025-09-20 01:00:55
-
-Commit 4 at 2025-09-20 01:00:55
-
-Commit 5 at 2025-09-20 01:00:55
-
-Commit 6 at 2025-09-20 01:00:55
-
-Commit 7 at 2025-09-20 01:00:56
-
-Commit 1 at 2025-09-21 03:57:18
-
-Commit 2 at 2025-09-21 03:57:18
-
-Commit 3 at 2025-09-21 03:57:18
-
-Commit 1 at 2025-09-22 22:37:55
-
-Commit 2 at 2025-09-22 22:37:56
-
-Commit 3 at 2025-09-22 22:37:56
+[Sudhanshu Shukla](https://sudhanshu-shukl.github.io/portfolio)
