@@ -1,5 +1,6 @@
 import express from 'express';
 import Contest from '../models/Contest.js';
+import { importCodeforcesContests } from '../services/codeforces.js';
 
 const router = express.Router();
 
@@ -33,6 +34,16 @@ router.get('/past', async (req, res) => {
     res.json(contests);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching past contests', error: error.message });
+  }
+});
+
+// POST /api/contests/import/codeforces - Import upcoming Codeforces contests
+router.post('/import/codeforces', async (req, res) => {
+  try {
+    const result = await importCodeforcesContests();
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ message: 'Error importing Codeforces contests', error: error.message });
   }
 });
 

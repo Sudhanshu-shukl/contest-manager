@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './config/database.js';
 import contestRoutes from './routes/contests.js';
+import { importCodeforcesContests } from './services/codeforces.js';
 
 // Load environment variables
 dotenv.config();
@@ -56,4 +57,19 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`🏥 Health check at http://localhost:${PORT}/api/health`);
   console.log(`📱 Access from phone: http://YOUR_IP:${PORT}/api`);
   console.log(`💡 Find your IP with: ipconfig (Windows) or ifconfig (Mac/Linux)`);
+
+  // Background job: import Codeforces contests every 6 hours
+  const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
+  const runImport = async () => {
+    try {
+      const result = await importCodeforcesContests();
+      console.log('🗓️ Codeforces import:', result);
+    } catch (e) {
+      console.error('Failed Codeforces import:', e.message);
+    }
+  };
+
+  // Kick off once on boot, then schedule
+  runImport();
+  setInterval(runImport, SIX_HOURS_MS);
 });

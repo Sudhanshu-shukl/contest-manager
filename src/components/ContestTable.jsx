@@ -21,27 +21,8 @@ const ContestTable = ({
     if (contest.done) return 'completed';
     if (contest.skipped) return 'skipped';
     
-    // Handle different date formats
-    let contestDateTime;
-    
-    if (contest.date instanceof Date) {
-      // MongoDB Date object
-      const dateStr = contest.date.toISOString().split('T')[0]; // Get YYYY-MM-DD
-      contestDateTime = new Date(dateStr + ' ' + contest.time);
-    } else if (typeof contest.date === 'string') {
-      // String date - could be ISO string or YYYY-MM-DD format
-      if (contest.date.includes('T')) {
-        // ISO string format
-        const dateStr = contest.date.split('T')[0];
-        contestDateTime = new Date(dateStr + ' ' + contest.time);
-      } else {
-        // YYYY-MM-DD format
-        contestDateTime = new Date(contest.date + ' ' + contest.time);
-      }
-    } else {
-      // Fallback - try to create date anyway
-      contestDateTime = new Date(contest.date + ' ' + contest.time);
-    }
+    // Use the stored Date directly (interpreted in local timezone)
+    const contestDateTime = contest.date instanceof Date ? contest.date : new Date(contest.date);
     
     const now = new Date();
     const diffDays = (contestDateTime - now) / (1000 * 60 * 60 * 24);
@@ -62,8 +43,9 @@ const ContestTable = ({
     });
   };
 
-  const formatTime = (timeString) => {
-    return new Date('2000-01-01 ' + timeString).toLocaleTimeString('en-US', {
+  const formatTime = (date) => {
+    const dateObj = date instanceof Date ? date : new Date(date);
+    return dateObj.toLocaleTimeString('en-US', {
       hour: 'numeric',
       minute: '2-digit',
       hour12: true
@@ -152,7 +134,7 @@ const ContestTable = ({
                 </div>
                 <div className="detail-item">
                   <Clock size={16} />
-                  <span>{formatTime(contest.time)}</span>
+                  <span>{formatTime(contest.date)}</span>
                 </div>
                 <div className="detail-item">
                   <ExternalLink size={16} />

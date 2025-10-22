@@ -22,12 +22,13 @@ const contestSchema = new mongoose.Schema({
   },
   link: {
     type: String,
-    required: [true, 'Contest link is required'],
+    default: '',
     validate: {
       validator: function(v) {
-        return /^https?:\/\/.+/.test(v);
+        // Allow empty string (e.g., for Codeforces contests as requested), or a valid URL
+        return v === '' || /^https?:\/\/.+/.test(v);
       },
-      message: 'Please provide a valid URL'
+      message: 'Please provide a valid URL or leave empty'
     }
   },
   done: {

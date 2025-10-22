@@ -95,6 +95,13 @@ class ApiService {
     return this.request('/contests/stats/summary');
   }
 
+  // Import Codeforces upcoming contests
+  async importCodeforces() {
+    return this.request('/contests/import/codeforces', {
+      method: 'POST'
+    });
+  }
+
   // Health check
   async healthCheck() {
     return this.request('/health');
