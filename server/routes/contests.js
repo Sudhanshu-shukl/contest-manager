@@ -1,6 +1,8 @@
 import express from 'express';
 import Contest from '../models/Contest.js';
 import { importCodeforcesContests } from '../services/codeforces.js';
+import { importAtCoderContests } from '../services/atcoder.js';
+import { importLeetCodeContests } from '../services/leetcode.js';
 
 const router = express.Router();
 
@@ -44,6 +46,26 @@ router.post('/import/codeforces', async (req, res) => {
     res.json(result);
   } catch (error) {
     res.status(500).json({ message: 'Error importing Codeforces contests', error: error.message });
+  }
+});
+
+// POST /api/contests/import/atcoder - Import upcoming AtCoder contests
+router.post('/import/atcoder', async (req, res) => {
+  try {
+    const result = await importAtCoderContests();
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ message: 'Error importing AtCoder contests', error: error.message });
+  }
+});
+
+// POST /api/contests/import/leetcode - Import upcoming LeetCode contests
+router.post('/import/leetcode', async (req, res) => {
+  try {
+    const result = await importLeetCodeContests();
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ message: 'Error importing LeetCode contests', error: error.message });
   }
 });
 

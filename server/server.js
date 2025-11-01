@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import connectDB from './config/database.js';
 import contestRoutes from './routes/contests.js';
 import { importCodeforcesContests } from './services/codeforces.js';
+import { importAtCoderContests } from './services/atcoder.js';
+import { importLeetCodeContests } from './services/leetcode.js';
 
 // Load environment variables
 dotenv.config();
@@ -58,18 +60,35 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`📱 Access from phone: http://YOUR_IP:${PORT}/api`);
   console.log(`💡 Find your IP with: ipconfig (Windows) or ifconfig (Mac/Linux)`);
 
-  // Background job: import Codeforces contests every 6 hours
+  // Background job: import contests every 6 hours
   const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
-  const runImport = async () => {
+  const runImports = async () => {
+    // Import Codeforces contests
     try {
       const result = await importCodeforcesContests();
       console.log('🗓️ Codeforces import:', result);
     } catch (e) {
       console.error('Failed Codeforces import:', e.message);
     }
+
+    // Import AtCoder contests
+    try {
+      const result = await importAtCoderContests();
+      console.log('🗓️ AtCoder import:', result);
+    } catch (e) {
+      console.error('Failed AtCoder import:', e.message);
+    }
+
+    // Import LeetCode contests
+    try {
+      const result = await importLeetCodeContests();
+      console.log('🗓️ LeetCode import:', result);
+    } catch (e) {
+      console.error('Failed LeetCode import:', e.message);
+    }
   };
 
   // Kick off once on boot, then schedule
-  runImport();
-  setInterval(runImport, SIX_HOURS_MS);
+  runImports();
+  setInterval(runImports, SIX_HOURS_MS);
 });
