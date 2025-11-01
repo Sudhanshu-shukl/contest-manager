@@ -54,11 +54,11 @@ app.use('*', (req, res) => {
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📊 API available at http://localhost:${PORT}/api`);
-  console.log(`🏥 Health check at http://localhost:${PORT}/api/health`);
-  console.log(`📱 Access from phone: http://YOUR_IP:${PORT}/api`);
-  console.log(`💡 Find your IP with: ipconfig (Windows) or ifconfig (Mac/Linux)`);
+  console.log(`Server running on port ${PORT}`);
+  console.log(`API available at http://localhost:${PORT}/api`);
+  console.log(`Health check at http://localhost:${PORT}/api/health`);
+  console.log(`Access from phone: http://YOUR_IP:${PORT}/api`);
+  console.log(`Find your IP with: ipconfig (Windows) or ifconfig (Mac/Linux)`);
 
   // Background job: import contests every 6 hours
   const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
